@@ -1,39 +1,67 @@
-var twitter = require("./keys.js").twitterKeys;
+var Twitter = require("twitter");
+var client = new Twitter(require("./keys.js").TwitterKeys);
 var spotify = require("spotify");
 var request = require("request");
-var inquirer = require("inquirer");
+var params = {screen_name: 'nodejs'};
+var runner = {status: process.argv[3]};
+var findIt = {screen_name: 'nodejs'};
+var stream = client.stream('statuses/filter', {track: 'javascript'});
 
 //Twitter use
-var params = {screen_name: 'nodejs'};
-client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
-    console.log(tweets);
-  }
-});
+switch(process.argv[2]) {
+	case "my-tweets":
+		fetchTweets();
+		break;
+	case "spotify-this-song":
+
+		break;
+	case "movie-this": 
+
+		break;
+	case "do-what-it-says":
+
+		break;
+	case "post-tweet":
+		twitterPost();
+		break;
+}
 
 
 
-//inquirer to gain input.
-inquirer.prompt([
+function twitterPost() {
+	client.post('statuses/update', runner, function(error, tweets, response) {
+	  if (error) {
+	    console.log(error);
+	  } else {
+	  	console.log(tweets);
+	  }
+	});
+}
 
-  {
-    type: "input",
-    message: "Put in name of place you wish you know the weather:",
-    name: "name"
-  },
 
-  {
-    type: "confirm",
-    message: "Are you sure:",
-    name: "confirm",
-    default: true
+function fetchTweets() {
+	client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+		  stream.on('data', function(event) {
+		    console.log(event);
+		  });
+		 
+		  stream.on('error', function(error) {
+		    throw error;
+		  });
+		});
+	
+	// client.get('statuses/user_timeline', params, function(error, tweets, response){
+	// 	if(error) {
+	// 		console.log(error)
+	// 	} else {
+	// 		console.log(tweets)
+	// 	}
+	// })
+}
 
-  }
+function spotifySearch() {
 
-  
-
-]).then(function(user) {
-
+}
 //Spotify use 
 spotify.search({ type: 'track', query: 'dancing in the moonlight' }, function(err, data) {
     if ( err ) {
