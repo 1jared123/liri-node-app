@@ -13,7 +13,7 @@ switch(process.argv[2]) {
 		fetchTweets();
 		break;
 	case "spotify-this-song":
-
+		spotifySearch();
 		break;
 	case "movie-this": 
 
@@ -60,17 +60,20 @@ function fetchTweets() {
 }
 
 function spotifySearch() {
+//Spotify use 
+	spotify.search({ type: 'track', query: 'dancing in the moonlight' }, function(err, data) {
+	    if ( err ) {
+	        console.log('Error occurred: ' + err);
+	        return;
+	    } else {
+	    	console.log(data);
+	    }
+	 
+	    // Do something with 'data' 
+	});
 
 }
-//Spotify use 
-spotify.search({ type: 'track', query: 'dancing in the moonlight' }, function(err, data) {
-    if ( err ) {
-        console.log('Error occurred: ' + err);
-        return;
-    }
- 
-    // Do something with 'data' 
-});
+
 
 
 
@@ -80,8 +83,4 @@ search: function({ type: 'artist OR album OR track', query: 'My search query' },
 
 
 get: function(query, hollaback) -- See http://developer.spotify.com/en/metadata-api/overview/ 
-
-
-})
-
 
