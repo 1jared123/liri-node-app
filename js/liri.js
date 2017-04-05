@@ -61,26 +61,46 @@ function fetchTweets() {
 
 function spotifySearch() {
 //Spotify use 
-	spotify.search({ type: 'track', query: 'dancing in the moonlight' }, function(err, data) {
-	    if ( err ) {
-	        console.log('Error occurred: ' + err);
-	        return;
-	    } else {
-	    	console.log(data);
-	    }
-	 
-	    // Do something with 'data' 
-	});
+
+	if (process.argv[3] === null) {
+		spotify.search({ type: 'track', query: "Ace of Base" }, function(err, data) {
+		console.log("Artists: " + data.tracks.items[1].artists[1]);
+		console.log("Song's name: " + data.tracks.items[1].name);
+		console.log("Want to preview this song? Go to: " + data.tracks.items[1].preview_url);
+		console.log("Album's name: " + data.tracks.items[1].album.name);
+		console.log("Artists: " + data.tracks.items[2].artists[2]);
+		console.log("Song's name: " + data.tracks.items[2].name);
+		console.log("Want to preview this song? Go to: " + data.tracks.items[2].preview_url);
+		console.log("Album's name: " + data.tracks.items[2].album.name);
+		console.log("Artists: " + data.tracks.items[3].artists[3]);
+		console.log("Song's name: " + data.tracks.items[3].name);
+		console.log("Want to preview this song? Go to: " + data.tracks.items[3].preview_url);
+		console.log("Album's name: " + data.tracks.items[3].album.name);
+		})
+	} else {
+
+		spotify.search({ type: 'track', query: process.argv[3] }, function(err, data) {
+		    if ( err ) {
+		        console.log('Error occurred: ' + err);
+		        return;
+		    } 
+
+		console.log("Artists: " + data.tracks.items[0].artists[0].name);
+		console.log("Song's name: " + data.tracks.items[0].name);
+		console.log("Want to preview this song? Go to: " + data.tracks.items[0].preview_url);
+		console.log("Album's name: " + data.tracks.items[0].album.name);
+		})
+	}
 
 }
 
 
 
 
-lookup: function({ type: 'artist OR album OR track', id: 'Spotify ID Hash' }, hollaback)
+// lookup: function({ type: 'artist OR album OR track', id: 'Spotify ID Hash' }, hollaback)
 
-search: function({ type: 'artist OR album OR track', query: 'My search query' }, hollaback)
+// search: function({ type: 'artist OR album OR track', query: 'My search query' }, hollaback)
 
 
-get: function(query, hollaback) -- See http://developer.spotify.com/en/metadata-api/overview/ 
+// get: function(query, hollaback) -- See http://developer.spotify.com/en/metadata-api/overview/ 
 
