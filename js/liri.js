@@ -3,7 +3,7 @@ var client = new Twitter(require("./keys.js").TwitterKeys);
 var fs = require("fs");
 var spotify = require("spotify");
 var request = require("request");
-var params = {screen_name: 'nodejs', count: 20};
+var params = {screen_name: '321jared123'};
 var runner = {status: process.argv[3]};
 var findIt = {screen_name: 'nodejs'};
 var stream = client.stream('statuses/filter', {track: 'javascript'});
@@ -25,7 +25,7 @@ switch(process.argv[2]) {
 	case "post-tweet":
 		twitterPost();
 		break;
-}
+};
 
 
 //function to post a tweet!
@@ -34,18 +34,19 @@ function twitterPost() {
 	  if (error) {
 	    console.log(error);
 	  } else {
-	  	console.log(tweets);
+	  	console.log("Tweet posted!");
 	  }
 	});
 }
 
 //function to get 20 of your tweets.
 function fetchTweets() {	
-	client.get('statuses/user_timeline', params, function(error, tweets, response){
+	client.get('favorites/list', params, function(error, tweets, response){
 		if(error) {
-			console.log(error)
+			console.log(error);
 		} else {
-			console.log(tweets)
+			console.log(response);
+			console.log(tweets);
 		}
 	})
 }
