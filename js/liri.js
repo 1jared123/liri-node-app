@@ -1,14 +1,13 @@
+//all them requires going in here
 var Twitter = require("twitter");
 var client = new Twitter(require("./keys.js").TwitterKeys);
 var fs = require("fs");
 var spotify = require("spotify");
 var request = require("request");
-var params = {screen_name: '321jared123'};
+var params = {screen_name: '321jared123', count: 20};
 var runner = {status: process.argv[3]};
-var findIt = {screen_name: 'nodejs'};
-var stream = client.stream('statuses/filter', {track: 'javascript'});
 
-//switch to determine where we going from the start!
+//switch to determine where we going from the start
 switch(process.argv[2]) {
 	case "my-tweets":
 		fetchTweets();
@@ -41,12 +40,17 @@ function twitterPost() {
 
 //function to get 20 of your tweets.
 function fetchTweets() {	
-	client.get('favorites/list', params, function(error, tweets, response){
+	client.get('statuses/user_timeline', params, function(error, tweets, response){
 		if(error) {
 			console.log(error);
 		} else {
-			console.log(response);
-			console.log(tweets);
+			for (var i = 0; i < tweets.length; i++) {
+				console.log("-------------");
+				console.log("Posted at: " + tweets[i].created_at);
+				console.log("");
+				console.log("Ya tweeeted: " + tweets[i].text);
+
+			}
 		}
 	})
 }

@@ -1,4 +1,5 @@
-console.log('this is loaded');
+//holding the info for the twitter posts.
+
 var twitter = require("twitter");
 
 exports.TwitterKeys = {
