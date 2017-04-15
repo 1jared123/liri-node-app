@@ -24,6 +24,10 @@ switch(process.argv[2]) {
 	case "post-tweet":
 		twitterPost();
 		break;
+
+	default:
+		console.log("Pls try again.");
+		break;
 };
 
 
